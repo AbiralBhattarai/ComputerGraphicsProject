@@ -1,15 +1,21 @@
 import pygame, sys, random
 pygame.font.init()
 textfont = pygame.font.SysFont('monospace',50)
+opponent_score = 0
+player_score = 0
 
 def ball_animation():
-    global bspeed_x,bspeed_y
+    global bspeed_x,bspeed_y,player_score,opponent_score
     ball.x += bspeed_x
     ball.y += bspeed_y
     if ball.top <= 0 or ball.bottom >= screen_height:
         bspeed_y *=-1
-    if ball.left <=0 or ball.right >= screen_width:
-        ball_restart() 
+    if ball.left <=0 :
+        ball_restart()
+        player_score += 1
+    if ball.right >= screen_width:
+        ball_restart()
+        opponent_score +=1
         
     if ball.colliderect(player) or ball.colliderect(opponent):
         bspeed_x *= -1
@@ -34,6 +40,14 @@ def ball_restart():
     bspeed_y *= random.choice((1,-1))
     bspeed_x *= random.choice((1,-1))
     
+text_font = pygame.font.SysFont("monospace", 30)
+  
+   
+    
+def draw_text(text, font, text_col, x, y):
+    img = font.render(text, True, text_col)
+    screen.blit(img,(x,y))
+    
 pygame.init()
 clock = pygame.time.Clock();
 
@@ -51,8 +65,8 @@ opponent = pygame.Rect(10,screen_height/2-70,10,140)
 bg_color = pygame.Color('white')
 elements = (0,0,0)
 
-bspeed_x = 8 *random.choice((1,-1))
-bspeed_y = 8 *random.choice((1,-1))
+bspeed_x = 9*random.choice((1,-1))
+bspeed_y = 9*random.choice((1,-1))
 pspeed = 0
 ospeed = 0
 
@@ -60,7 +74,7 @@ ospeed = 0
 while run:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                pygame.quit()
+                pygame.quit()   
                 sys.exit()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_DOWN:
@@ -88,11 +102,13 @@ while run:
         opponent_animation()
         
         
-        screen.fill(bg_color)    
+        screen.fill(bg_color)
+        draw_text('Player 1 score: '+ str(opponent_score),text_font,(0,0,0),220,150)
+        draw_text('Player 2 score: '+ str(player_score),text_font,(0,0,0),840,150)   
         pygame.draw.rect(screen,elements, player) 
         pygame.draw.rect(screen,elements, opponent)
         pygame.draw.ellipse(screen,elements, ball)
-        pygame.draw.aaline(screen,elements,(screen_width/2,0),(screen_width/2,screen_height))    
+        pygame.draw.aaline(screen,elements,(screen_width/2,0),(screen_width/2,screen_height))
         pygame.display.flip()
         clock.tick(60)
         
