@@ -1,15 +1,17 @@
 import pygame, sys, random
+pygame.font.init()
+textfont = pygame.font.SysFont('monospace',50)
 
 def ball_animation():
-     global bspeed_x,bspeed_y
-     ball.x += bspeed_x
-     ball.y += bspeed_y
-     if ball.top <= 0 or ball.bottom >= screen_height:
+    global bspeed_x,bspeed_y
+    ball.x += bspeed_x
+    ball.y += bspeed_y
+    if ball.top <= 0 or ball.bottom >= screen_height:
         bspeed_y *=-1
-     if ball.left <=0 or ball.right >= screen_width:
-        ball_restart()
+    if ball.left <=0 or ball.right >= screen_width:
+        ball_restart() 
         
-     if ball.colliderect(player) or ball.colliderect(opponent):
+    if ball.colliderect(player) or ball.colliderect(opponent):
         bspeed_x *= -1
     
 def player_animation():
@@ -62,25 +64,24 @@ while run:
                 sys.exit()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_DOWN:
-                    pspeed += 8
+                    pspeed += 10
                 if event.key == pygame.K_UP:
-                    pspeed -= 8   
+                    pspeed -= 10  
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_DOWN:
-                    pspeed -= 8
+                    pspeed -= 10
                 if event.key == pygame.K_UP:
-                    pspeed += 8  
+                    pspeed += 10 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_s:
-                    ospeed += 8
+                    ospeed += 10
                 if event.key == pygame.K_w:
-                    ospeed -= 8   
+                    ospeed -= 10  
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_s:
-                    ospeed -= 8
+                    ospeed -= 10
                 if event.key == pygame.K_w:
-                    ospeed += 8  
-                
+                    ospeed += 10 
                 
         ball_animation()
         player_animation()
