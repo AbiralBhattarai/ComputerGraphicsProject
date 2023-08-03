@@ -66,7 +66,7 @@ def introf():
         clock.tick(15)
     
 def game():
-    global run,pspeed,ospeed   
+    global run,pspeed,ospeed,player_score,opponent_score   
     while run:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -112,13 +112,13 @@ def game():
             pygame.display.flip()
             clock.tick(60)
 def endingf():
-    global ending                   
+    global ending,player_score,opponent_score                  
     while ending:
                 screen.fill(bg_color)
-                if player_score > opponent_score:
+                if player_score < opponent_score:
                     draw_text("Player 1 Wins!!!",text_font,(0,0,0,0),500,300)
-                elif player_score < opponent_score:
-                    draw_text("Player 1 Wins!!!",text_font,(0,0,0,0),500,300)
+                elif opponent_score < player_score:
+                    draw_text("Player 2 Wins!!!",text_font,(0,0,0,0),500,300)
                 else :
                     draw_text("DRAW!!!",text_font,(0,0,0,0),600,300)
                 draw_text("Press Q to Quit",text_font,(0,0,0,0),500,400)
