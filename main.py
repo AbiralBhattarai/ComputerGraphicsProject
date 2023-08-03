@@ -1,4 +1,4 @@
-import pygame, sys, random, button
+import pygame, sys, random
 pygame.font.init()
 textfont = pygame.font.SysFont('monospace',50)
 global intro, run, ending
@@ -147,10 +147,7 @@ pygame.display.set_caption('Graphics Project: Pong game')
 run = True
 intro = True
 ending = True
-resume_image = pygame.image.load("images/resume.png").convert_alpha()
-quit_image = pygame.image.load("images/quit.png").convert_alpha()
-resume_button = button.Button(500,125,resume_image,1)
-quit_button = button.Button(500,200,quit_image,1) 
+
 
 
 ball = pygame.Rect(screen_width/2-17.5,screen_height/2-17.5,35,35)
